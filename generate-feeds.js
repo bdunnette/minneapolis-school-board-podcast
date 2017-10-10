@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var cheerio = require('cheerio'),
     cheerioTableparser = require('cheerio-tableparser'),
     rss = require('rss'),
