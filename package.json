@@ -1,0 +1,29 @@
+{
+  "name": "minneapolis-school-board-podcast",
+  "version": "1.0.0",
+  "description": "Generate RSS feed(s) from the Minneapolis School Board meeting media available here: http://mplsk12mn.granicus.com/ViewPublisher.php?view_id=2",
+  "main": "generate-feeds.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "cheerio-tableparser": "^1.0.1",
+    "lodash": "^4.17.4",
+    "moment": "^2.19.0",
+    "request": "^2.83.0",
+    "rss": "^1.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bdunnette/minneapolis-school-board-podcast.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bdunnette/minneapolis-school-board-podcast/issues"
+  },
+  "homepage": "https://github.com/bdunnette/minneapolis-school-board-podcast#readme"
+}
