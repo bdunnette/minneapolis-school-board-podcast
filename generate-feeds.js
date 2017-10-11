@@ -15,7 +15,25 @@ var feed = new rss({
     title: "Minneapolis School Board Meetings",
     site_url: url,
     image_url: imageUrl,
-    categories: ['Government & Organizations:Local']
+    categories: ['Government & Organizations:Local'],
+    custom_namespaces: {
+        'itunes': 'http://www.itunes.com/dtds/podcast-1.0.dtd'
+    },
+    custom_elements: [{
+        'itunes:category': [{
+                _attr: {
+                    text: 'Government & Organizations'
+                }
+            },
+            {
+                'itunes:category': {
+                    _attr: {
+                        text: 'Local'
+                    }
+                }
+            }
+        ]
+    }]
 });
 var feedTimezone = 'America/Chicago';
 var audioFeedFile = path.join(__dirname, 'feed-audio.xml');
@@ -50,15 +68,15 @@ request.get({
                 enclosure: {
                     url: mediaUrl
                 },
-                custom_elements:[
-                    // {'itunes:duration': duration}
+                custom_elements: [
+                    {'itunes:duration': duration}
                 ]
             }
             // Disabling agenda links, as the RSS modules seems to have trouble with ampersands?
             // if (agendas[index].length > 6){
             //     feedItem.url = $(agendas[index]).attr('href');
             // }
-            if (moment(episodeDate).isAfter(latestEpisodeDate)){
+            if (moment(episodeDate).isAfter(latestEpisodeDate)) {
                 latestEpisodeDate = episodeDate;
             }
             feed.item(feedItem)
@@ -66,7 +84,9 @@ request.get({
     });
     feed.pubDate = latestEpisodeDate;
     console.log(`Found ${feed.items.length} items...`);
-    var feedXml = feed.xml({indent: true});
+    var feedXml = feed.xml({
+        indent: true
+    });
     console.log(`Writing ${audioFeedFile}...`);
     fs.writeFileSync(audioFeedFile, feedXml);
 })
