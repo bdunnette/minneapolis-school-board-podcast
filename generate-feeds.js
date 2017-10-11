@@ -39,7 +39,7 @@ request.get({
             var durationString = durations[index].split(' ');
             var durationHours = parseInt(durationString[0]);
             var durationMinutes = _.padStart(parseInt(durationString[1]), 2, '0');
-            var duration = [durationHours, durationMinutes].join(':')
+            var duration = [durationHours, durationMinutes].join(':').toString()
             var mediaUrl = $(element).attr('href');
             var title = titles[index];
             var feedItem = {
@@ -49,7 +49,7 @@ request.get({
                     url: mediaUrl
                 },
                 custom_elements:[
-                    {'itunes:duration': duration}
+                    // {'itunes:duration': duration}
                 ]
             }
             // Disabling agenda links, as the RSS modules seems to have trouble with ampersands?
