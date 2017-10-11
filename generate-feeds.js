@@ -10,9 +10,11 @@ var cheerio = require('cheerio'),
     path = require('path');
 
 var url = 'http://mplsk12mn.granicus.com/ViewPublisher.php?view_id=2'
+var imageUrl = 'http://armatage.mpls.k12.mn.us/uploads/mpslogotrans_15.png'
 var feed = new rss({
     title: "Minneapolis School Board Meetings",
     site_url: url,
+    image_url: imageUrl,
     categories: ['Government & Organizations:Local']
 });
 var feedTimezone = 'America/Chicago';
