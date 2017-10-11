@@ -64,7 +64,7 @@ request.get({
     });
     feed.pubDate = latestEpisodeDate;
     console.log(`Found ${feed.items.length} items...`);
-    var feedXml = feed.xml();
+    var feedXml = feed.xml({indent: true});
     console.log(`Writing ${audioFeedFile}...`);
     fs.writeFileSync(audioFeedFile, feedXml);
 })
