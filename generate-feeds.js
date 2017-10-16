@@ -52,7 +52,7 @@ request.get({
         video = tableData[5],
         audio = tableData[6];
     var latestEpisodeDate = new Date("2000-01-01");
-    audio.slice(1).forEach(function (element, index) {
+    audio.forEach(function (element, index) {
         if (element.length > 6) {
             var dateString = $(dates[index]).text().substring(10)
             var episodeDate = moment.tz(dateString, "MMM DD, YYYY", feedTimezone);
