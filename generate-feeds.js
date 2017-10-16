@@ -56,30 +56,33 @@ request.get({
         if (element.length > 6) {
             var dateString = $(dates[index]).text().substring(10)
             var episodeDate = moment.tz(dateString, "MMM DD, YYYY", feedTimezone);
-            var durationString = durations[index].split(' ');
-            var durationHours = parseInt(durationString[0]);
-            var durationMinutes = _.padStart(parseInt(durationString[1]), 2, '0');
-            var duration = [durationHours, durationMinutes].join(':').toString()
-            var mediaUrl = $(element).attr('href');
-            var title = titles[index];
-            var feedItem = {
-                title: dateString + " " + title,
-                date: episodeDate.format(),
-                enclosure: {
-                    url: mediaUrl
-                },
-                custom_elements: [
-                    {'itunes:duration': duration}
-                ]
+            // Only add the episode if we can parse a valid date
+            if (episodeDate.isValid()) {
+                var durationString = durations[index].split(' ');
+                var durationHours = parseInt(durationString[0]);
+                var durationMinutes = _.padStart(parseInt(durationString[1]), 2, '0');
+                var duration = [durationHours, durationMinutes].join(':').toString()
+                var mediaUrl = $(element).attr('href');
+                var title = titles[index];
+                var feedItem = {
+                    title: dateString + " " + title,
+                    date: episodeDate.format(),
+                    enclosure: {
+                        url: mediaUrl
+                    },
+                    custom_elements: [{
+                        'itunes:duration': duration
+                    }]
+                }
+                // Disabling agenda links, as the RSS modules seems to have trouble with ampersands?
+                // if (agendas[index].length > 6){
+                //     feedItem.url = $(agendas[index]).attr('href');
+                // }
+                if (moment(episodeDate).isAfter(latestEpisodeDate)) {
+                    latestEpisodeDate = episodeDate;
+                }
+                feed.item(feedItem)
             }
-            // Disabling agenda links, as the RSS modules seems to have trouble with ampersands?
-            // if (agendas[index].length > 6){
-            //     feedItem.url = $(agendas[index]).attr('href');
-            // }
-            if (moment(episodeDate).isAfter(latestEpisodeDate)) {
-                latestEpisodeDate = episodeDate;
-            }
-            feed.item(feedItem)
         }
     });
     feed.pubDate = latestEpisodeDate;
