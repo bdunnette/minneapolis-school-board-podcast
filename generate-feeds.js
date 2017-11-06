@@ -61,7 +61,7 @@ request.get({
                 var durationString = durations[index].split(' ');
                 var durationHours = parseInt(durationString[0]);
                 var durationMinutes = _.padStart(parseInt(durationString[1]), 2, '0');
-                var duration = [durationHours, durationMinutes].join(':').toString()
+                var duration = [durationHours, durationMinutes, '00'].join(':').toString()
                 var mediaUrl = $(element).attr('href');
                 var title = titles[index];
                 var feedItem = {
