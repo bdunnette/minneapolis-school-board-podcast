@@ -11,8 +11,9 @@ var cheerio = require('cheerio'),
 
 var url = 'http://mplsk12mn.granicus.com/ViewPublisher.php?view_id=2'
 var imageUrl = 'http://armatage.mpls.k12.mn.us/uploads/mpslogotrans_15.png'
-var feed = new rss({
+var feedOptions = {
     title: "Minneapolis School Board Meetings",
+    pubDate: new Date("2000-01-01"),
     site_url: url,
     image_url: imageUrl,
     categories: ['Government & Organizations:Local'],
@@ -34,9 +35,49 @@ var feed = new rss({
             }
         ]
     }]
+}
+// var feedTypes = ['audio', 'video'];
+var feedTypes = ['audio'];
+var feeds = {}
+feedTypes.forEach(function (ft) {
+    feeds[ft] = new rss(feedOptions)
 });
 var feedTimezone = 'America/Chicago';
-var audioFeedFile = path.join(__dirname, 'feed-audio.xml');
+
+function addFeedItem(feed, item, index, $, columns) {
+    if (item.length > 6) {
+        var dateString = $(columns.dates[index]).text().substring(10)
+        var episodeDate = moment.tz(dateString, "MMM DD, YYYY", feedTimezone);
+        // Only add the episode if we can parse a valid date
+        if (episodeDate.isValid()) {
+            var durationString = columns.durations[index].split(' ');
+            var durationHours = parseInt(durationString[0]);
+            var durationMinutes = _.padStart(parseInt(durationString[1]), 2, '0');
+            var durationSeconds = '00';
+            var duration = [durationHours, durationMinutes, durationSeconds].join(':').toString()
+            var mediaUrl = $(item).attr('href');
+            var title = columns.titles[index];
+            var feedItem = {
+                title: dateString + " " + title,
+                date: episodeDate.format(),
+                enclosure: {
+                    url: mediaUrl
+                },
+                custom_elements: [{
+                    'itunes:duration': duration
+                }]
+            }
+            // Disabling agenda links, as the RSS modules seems to have trouble with ampersands?
+            // if (agendas[index].length > 6){
+            //     feedItem.url = $(agendas[index]).attr('href');
+            // }
+            if (moment(episodeDate).isAfter(feed.pubDate)) {
+                feed.pubDate = episodeDate;
+            }
+            feed.item(feedItem)
+        }
+    }
+}
 
 request.get({
     url: url
@@ -45,52 +86,26 @@ request.get({
     cheerioTableparser($);
     var archive = $('table #archive');
     tableData = archive.parsetable(false, false, false);
-    var titles = tableData[0],
-        dates = tableData[1],
-        durations = tableData[2],
-        agendas = tableData[3],
-        video = tableData[5],
-        audio = tableData[6];
-    var latestEpisodeDate = new Date("2000-01-01");
-    audio.forEach(function (element, index) {
-        if (element.length > 6) {
-            var dateString = $(dates[index]).text().substring(10)
-            var episodeDate = moment.tz(dateString, "MMM DD, YYYY", feedTimezone);
-            // Only add the episode if we can parse a valid date
-            if (episodeDate.isValid()) {
-                var durationString = durations[index].split(' ');
-                var durationHours = parseInt(durationString[0]);
-                var durationMinutes = _.padStart(parseInt(durationString[1]), 2, '0');
-                var durationSeconds = '00';
-                var duration = [durationHours, durationMinutes, durationSeconds].join(':').toString()
-                var mediaUrl = $(element).attr('href');
-                var title = titles[index];
-                var feedItem = {
-                    title: dateString + " " + title,
-                    date: episodeDate.format(),
-                    enclosure: {
-                        url: mediaUrl
-                    },
-                    custom_elements: [{
-                        'itunes:duration': duration
-                    }]
-                }
-                // Disabling agenda links, as the RSS modules seems to have trouble with ampersands?
-                // if (agendas[index].length > 6){
-                //     feedItem.url = $(agendas[index]).attr('href');
-                // }
-                if (moment(episodeDate).isAfter(latestEpisodeDate)) {
-                    latestEpisodeDate = episodeDate;
-                }
-                feed.item(feedItem)
-            }
-        }
-    });
-    feed.pubDate = latestEpisodeDate;
-    console.log(`Found ${feed.items.length} items...`);
-    var feedXml = feed.xml({
-        indent: true
-    });
-    console.log(`Writing ${audioFeedFile}...`);
-    fs.writeFileSync(audioFeedFile, feedXml);
+
+    var columns = {
+        titles: tableData[0],
+        dates: tableData[1],
+        durations: tableData[2],
+        agendas: tableData[3],
+        video: tableData[5],
+        audio: tableData[6]
+    }
+
+    feedTypes.forEach(function (feedType) {
+        columns[feedType].forEach(function (element, index) {
+            addFeedItem(feeds[feedType], element, index, $, columns)
+        });
+        console.log(`Found ${feeds[feedType].items.length} ${feedType} items...`);
+        var feedXml = feeds[feedType].xml({
+            indent: true
+        });
+        var feedFile = path.join(__dirname, 'feed-' + feedType + '.xml');
+        console.log(`Writing ${feedFile}...`);
+        fs.writeFileSync(feedFile, feedXml);
+    })
 })
