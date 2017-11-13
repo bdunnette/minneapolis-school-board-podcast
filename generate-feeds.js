@@ -4,13 +4,17 @@ var cheerio = require('cheerio'),
     cheerioTableparser = require('cheerio-tableparser'),
     rss = require('rss'),
     request = require('request'),
+    rs = require('request-sync'),
     _ = require('lodash'),
     moment = require('moment-timezone'),
     fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    // fileSize = require('remote-file-size'),
+    url = require('url');
 
 var url = 'http://mplsk12mn.granicus.com/ViewPublisher.php?view_id=2'
 var imageUrl = 'http://armatage.mpls.k12.mn.us/uploads/mpslogotrans_15.png'
+var enclosurePrefix = 'mplsk12mn_';
 var feedOptions = {
     title: "Minneapolis School Board Meetings",
     pubDate: new Date("2000-01-01"),
@@ -57,11 +61,15 @@ function addFeedItem(feed, item, index, $, columns) {
             var duration = [durationHours, durationMinutes, durationSeconds].join(':').toString()
             var mediaUrl = $(item).attr('href');
             var title = columns.titles[index];
+            var fileName = path.basename(mediaUrl, path.extname(mediaUrl))
+            var guid = fileName.replace(enclosurePrefix,'');
             var feedItem = {
+                guid: guid,
                 title: dateString + " " + title,
                 date: episodeDate.format(),
                 enclosure: {
-                    url: mediaUrl
+                    url: mediaUrl,
+                    size: 0
                 },
                 custom_elements: [{
                     'itunes:duration': duration
@@ -74,7 +82,11 @@ function addFeedItem(feed, item, index, $, columns) {
             if (moment(episodeDate).isAfter(feed.pubDate)) {
                 feed.pubDate = episodeDate;
             }
-            feed.item(feedItem)
+            // console.log(`Getting size of ${mediaUrl}...`);
+            var size = rs({method: 'HEAD', uri: mediaUrl}).headers['content-length'];
+            feedItem.enclosure.size = size;
+            console.log(`Adding ${dateString} ${title} to feed...`)
+            feed.item(feedItem);
         }
     }
 }

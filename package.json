@@ -10,6 +10,7 @@
     "moment": "^2.19.0",
     "moment-timezone": "^0.5.13",
     "request": "^2.83.0",
+    "request-sync": "^1.0.0",
     "rss": "^1.2.2"
   },
   "devDependencies": {},
