@@ -9,12 +9,19 @@
             <link>http://mplsk12mn.granicus.com/ViewPublisher.php?view_id=2</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 13 Nov 2017 23:25:40 GMT</lastBuildDate>
-        <pubDate>Tue, 24 Oct 2017 05:00:00 GMT</pubDate>
+        <lastBuildDate>Wed, 20 Dec 2017 20:04:19 GMT</lastBuildDate>
+        <pubDate>Tue, 19 Dec 2017 06:00:00 GMT</pubDate>
         <category><![CDATA[Government & Organizations:Local]]></category>
         <itunes:category text="Government &amp; Organizations">
             <itunes:category text="Local"/>
         </itunes:category>
+        <item>
+            <title><![CDATA[Dec 19, 2017 Committee of the Whole]]></title>
+            <guid isPermaLink="false">c38ea062-9cee-44ec-9ad2-574c49e21aec</guid>
+            <pubDate>Tue, 19 Dec 2017 06:00:00 GMT</pubDate>
+            <enclosure url="http://archive-media.granicus.com:443/OnDemand/mplsk12mn/mplsk12mn_c38ea062-9cee-44ec-9ad2-574c49e21aec.mp3" length="59240272" type="audio/mpeg"/>
+            <itunes:duration>2:03:00</itunes:duration>
+        </item>
         <item>
             <title><![CDATA[Oct 24, 2017 Committee of the Whole]]></title>
             <guid isPermaLink="false">75b7f87e-5ae1-47c1-8cae-46e69224aa54</guid>
