@@ -9,12 +9,33 @@
             <link>http://mplsk12mn.granicus.com/ViewPublisher.php?view_id=2</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 27 Feb 2018 21:42:23 GMT</lastBuildDate>
-        <pubDate>Tue, 09 Jan 2018 06:00:00 GMT</pubDate>
+        <lastBuildDate>Fri, 06 Apr 2018 15:48:55 GMT</lastBuildDate>
+        <pubDate>Tue, 27 Mar 2018 05:00:00 GMT</pubDate>
         <category><![CDATA[Government & Organizations:Local]]></category>
         <itunes:category text="Government &amp; Organizations">
             <itunes:category text="Local"/>
         </itunes:category>
+        <item>
+            <title><![CDATA[Mar 27, 2018 Committee Of The Whole]]></title>
+            <guid isPermaLink="false">7f52d61b-0346-429d-87dd-31be7c633402</guid>
+            <pubDate>Tue, 27 Mar 2018 05:00:00 GMT</pubDate>
+            <enclosure url="http://archive-media.granicus.com:443/OnDemand/mplsk12mn/mplsk12mn_7f52d61b-0346-429d-87dd-31be7c633402.mp3" length="90633836" type="audio/mpeg"/>
+            <itunes:duration>1:22:00</itunes:duration>
+        </item>
+        <item>
+            <title><![CDATA[Mar 13, 2018 Regular Board Meeting]]></title>
+            <guid isPermaLink="false">56a02d3d-19b4-46e6-a957-e170cc75eb9b</guid>
+            <pubDate>Tue, 13 Mar 2018 05:00:00 GMT</pubDate>
+            <enclosure url="http://archive-media.granicus.com:443/OnDemand/mplsk12mn/mplsk12mn_56a02d3d-19b4-46e6-a957-e170cc75eb9b.mp3" length="408259391" type="audio/mpeg"/>
+            <itunes:duration>5:58:00</itunes:duration>
+        </item>
+        <item>
+            <title><![CDATA[Feb 27, 2018 Committee Of The Whole]]></title>
+            <guid isPermaLink="false">134fdeab-29d8-4c1a-a06c-2c9db7ffdd22</guid>
+            <pubDate>Tue, 27 Feb 2018 06:00:00 GMT</pubDate>
+            <enclosure url="http://archive-media.granicus.com:443/OnDemand/mplsk12mn/mplsk12mn_134fdeab-29d8-4c1a-a06c-2c9db7ffdd22.mp3" length="137366863" type="audio/mpeg"/>
+            <itunes:duration>1:59:00</itunes:duration>
+        </item>
         <item>
             <title><![CDATA[Jan 09, 2018 Regular Board Meeting]]></title>
             <guid isPermaLink="false">5c465a25-2291-49f3-a0a1-7eb95f2dffaa</guid>
@@ -35,6 +56,13 @@
             <pubDate>Tue, 12 Dec 2017 06:00:00 GMT</pubDate>
             <enclosure url="http://archive-media.granicus.com:443/OnDemand/mplsk12mn/mplsk12mn_d861696b-c4d7-47aa-9caf-12d2d26ffd25.mp3" length="346583916" type="audio/mpeg"/>
             <itunes:duration>5:10:00</itunes:duration>
+        </item>
+        <item>
+            <title><![CDATA[Nov 28, 2017 Committee Of The Whole]]></title>
+            <guid isPermaLink="false">b001744b-b5be-45d0-b111-2b11dc8f276d</guid>
+            <pubDate>Tue, 28 Nov 2017 06:00:00 GMT</pubDate>
+            <enclosure url="http://archive-media.granicus.com:443/OnDemand/mplsk12mn/mplsk12mn_b001744b-b5be-45d0-b111-2b11dc8f276d.mp3" length="149017268" type="audio/mpeg"/>
+            <itunes:duration>2:07:00</itunes:duration>
         </item>
         <item>
             <title><![CDATA[Nov 14, 2017 Regular Board Meeting]]></title>
